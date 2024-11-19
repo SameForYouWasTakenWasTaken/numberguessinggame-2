@@ -1,5 +1,8 @@
 #include <iostream>
 
+
+
+
 using namespace std;
 
 int RandomNumber(int min, int max){
@@ -9,12 +12,28 @@ int RandomNumber(int min, int max){
 int main(int argc, char const *argv[])
 {
     int correctGuessed = 0;
+    cout << "Type in a number, to guess another number between it! :";
+    int play;
+    cin >> play;
+
+    // terminate on error
+    if (cin.fail()){
+        terminate();
+        return -1;
+    }
+
+    if (play < 0) {
+        cout << "You can't have negative numbers!";
+        terminate();
+        return -1;
+    }
+
     while (true){
-        cout << "Type in a number from 1-3 and try to guess it! (Click any character to quit)" << endl;
+        cout << "Type in a number from 1-" << play << " and try to guess it! (Enter any character to quit)" << endl;
         int value;
         cin >> value;
 
-        int randNum = RandomNumber(1,3);
+        int randNum = RandomNumber(1,play);
         if (cin.fail()){
             cout << "Invalid input!" << endl;
             terminate();
@@ -23,10 +42,7 @@ int main(int argc, char const *argv[])
         if (value == randNum){
             correctGuessed++;
             cout << "Successfully guessed number! Answered " << correctGuessed << " correctly so far!" << endl;
-        }else if (value == 4){
-            terminate();
-        }else if (value > 3)
-        {
+        }else if (value > play){
             cout << "Your number is too big!!" << endl;
         }else{
             cout << "Whoops! Looks like you failed.." << endl;
